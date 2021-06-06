@@ -13,6 +13,7 @@ def lambda_handler(event, context):
         id = ssm.get_parameter(Name='spotify-mesh-clientId',WithDecryption=True)['Parameter']['Value']
         secret = ssm.get_parameter(Name='spotify-mesh-secret',WithDecryption=True)['Parameter']['Value']
         callback = ssm.get_parameter(Name='spotify-mesh-callback',WithDecryption=True)['Parameter']['Value']
+        # Scope should have these values just to be safe: user-read-currently-playing playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative
         scope = ssm.get_parameter(Name='spotify-mesh-scope',WithDecryption=True)['Parameter']['Value']
 
         token = util.prompt_for_user_token(username=os.environ['USERNAME'],scope=scope,client_id=id,client_secret=secret,redirect_uri=callback)
